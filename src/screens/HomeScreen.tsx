@@ -1,12 +1,16 @@
 import { View, Text, Image, FlatList, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import chatFaceData from '../constant/chatFaceData'
+import { useNavigation } from '@react-navigation/native'
+import { RootStackNavigationProp } from '../navigation/@types'
 
 const width = Dimensions.get('screen').width
 
 const HomeScreen = () => {
     const [selectedChatFace, setSelectedChatFace] = useState(chatFaceData[0])
     const [chatFaceList, setChatFaceList] = useState(chatFaceData)
+    const navigation = useNavigation<RootStackNavigationProp>()
+    
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
             <Text style={{ color: selectedChatFace.primary, fontSize: 30 }}>Hello</Text>
@@ -28,8 +32,13 @@ const HomeScreen = () => {
                     Choose another ChatBuddy
                 </Text>
             </View>
-            <TouchableOpacity style={{ marginTop: 35, backgroundColor: selectedChatFace.primary, width: width * 0.6, borderRadius: 100, padding: 15 }}>
-                <Text style={{ textAlign: 'center', fontSize: 19, color: '#fff',fontWeight:'bold' }}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('ChatScreen')}
+                style={{
+                    marginTop: 35, backgroundColor: selectedChatFace.primary,
+                    width: width * 0.6, borderRadius: 100, padding: 15
+                }}>
+                <Text style={{ textAlign: 'center', fontSize: 19, color: '#fff', fontWeight: 'bold' }}>
                     Let's Chat
                 </Text>
             </TouchableOpacity>
