@@ -1,24 +1,26 @@
-import { BARD_API_URL } from "@env";
+import { BARD_API_KEY, BARD_API_URL } from "@env";
 import axios from "axios";
 
 const POST = async (endpoint: string, body: any) => {
-    const config = {
-        method: 'POST',
-        url: BARD_API_URL + endpoint,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: JSON.stringify(body)
+    try {
+        const config = {
+            method: 'POST',
+            url: BARD_API_URL + endpoint,
+            headers: {
+                'content-type': 'application/json',
+                'xApiKey': BARD_API_KEY
+            },
+            data: JSON.stringify(body)
+        }
+        const response = await axios(config)
+        console.log(JSON.stringify(response.data));
+        return response.data
+    } catch (error: any) {
+        console.log(error, 'error at global-api.ts');
+        throw error
     }
-    axios.request(config)
-        .then((response) => {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-            console.log(error);
-        });
 }
 
-export const fetchBardAiAnswer = (body: FetchBardAiAnswerBody) => {
+export const fetchBardAiAnswer = async (body: FetchBardAiAnswerBody) => {
     return POST('/bard', body)
 }

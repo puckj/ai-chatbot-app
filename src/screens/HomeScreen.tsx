@@ -10,7 +10,7 @@ const HomeScreen = () => {
     const [selectedChatFace, setSelectedChatFace] = useState(chatFaceData[0])
     const [chatFaceList, setChatFaceList] = useState(chatFaceData)
     const navigation = useNavigation<RootStackNavigationProp>()
-    
+
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
             <Text style={{ color: selectedChatFace.primary, fontSize: 30 }}>Hello</Text>
@@ -33,7 +33,7 @@ const HomeScreen = () => {
                 </Text>
             </View>
             <TouchableOpacity
-                onPress={() => navigation.navigate('ChatScreen')}
+                onPress={() => navigation.navigate('ChatScreen', { selectedChatFace })}
                 style={{
                     marginTop: 35, backgroundColor: selectedChatFace.primary,
                     width: width * 0.6, borderRadius: 100, padding: 15
